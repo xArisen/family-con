@@ -17,15 +17,16 @@ import java.util.List;
 public class Calendar {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotBlank
     private String name;
 
-    @OneToMany
+    @OneToMany(mappedBy = "event")
     private List<Event> events;
 
     @ManyToOne
+    @JoinColumn(columnDefinition = "user_id", referencedColumnName="id", nullable=false, unique=true)
     private User user;
 }

@@ -6,10 +6,12 @@ import javassist.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 
 @Service
 @AllArgsConstructor
+@Transactional
 public class EventService {
 
     private final EventRepository eventRepository;

@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 public class Event {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotNull
@@ -31,5 +31,6 @@ public class Event {
     private String description;
 
     @ManyToOne
+    @JoinColumn(columnDefinition = "calendar_id", referencedColumnName="id", nullable=false, unique=true)
     private Calendar calendar;
 }
