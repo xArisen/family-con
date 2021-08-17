@@ -1,18 +1,9 @@
 package com.xArisen.FamilyCon;
 
-import com.xArisen.FamilyCon.models.Calendar;
-import com.xArisen.FamilyCon.models.Event;
-import com.xArisen.FamilyCon.models.User;
-import com.xArisen.FamilyCon.repo.CalendarRepository;
-import com.xArisen.FamilyCon.repo.EventRepository;
-import com.xArisen.FamilyCon.repo.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
-import java.util.*;
 
 @SpringBootApplication
 public class FamilyConApplication {
