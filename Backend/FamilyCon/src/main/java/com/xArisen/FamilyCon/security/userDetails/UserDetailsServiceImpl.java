@@ -14,10 +14,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserService userService;
 
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException, DataAccessException {
-        User domainUser = userService.getUserByEmail(email);
+    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException, DataAccessException {
+        User domainUser = userService.getUserByName(name);
         if (domainUser == null) {
-            throw new UsernameNotFoundException("Could not find user with email '" + email + "'");
+            throw new UsernameNotFoundException("Could not find user with name '" + name + "'");
         }
         return new UserDetailsImpl(domainUser, null);
     }

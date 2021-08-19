@@ -22,8 +22,8 @@ public class CalendarService {
         return calendarRepository.findById(id).orElseThrow(() -> new NotFoundException("Calendar not found"));
     }
 
-    public Long createCalendarForUserEmail(Calendar calendar, String email){
-        User user = userRepository.findByEmail(email);
+    public Long createCalendarForUserName(Calendar calendar, String name){
+        User user = userRepository.findByName(name);
         calendar.setUser(user);
         return calendarRepository.saveAndFlush(calendar).getId();
     }

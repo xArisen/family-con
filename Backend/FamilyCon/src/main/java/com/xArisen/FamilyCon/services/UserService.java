@@ -20,8 +20,8 @@ public class UserService {
     private final CalendarService calendarService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public User getUserByEmail(String email){
-        return userRepository.findByEmail(email);
+    public User getUserByName(String name){
+        return userRepository.findByName(name);
     }
 
     public Long registerUser(User user){
@@ -31,8 +31,8 @@ public class UserService {
         return userRepository.saveAndFlush(user).getId();
     }
 
-    public void assignCalendarToUser(String userEmail, Long calendarId) throws Exception{
-        User user = getUserByEmail(userEmail);
+    public void assignCalendarToUser(String userName, Long calendarId) throws Exception{
+        User user = getUserByName(userName);
         Calendar calendar = calendarService.getCalendarById(calendarId);
         if(user.getCalendars() == null){
             List<Calendar> calendarList = new ArrayList<>();

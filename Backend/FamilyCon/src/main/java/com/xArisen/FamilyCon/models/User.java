@@ -9,7 +9,6 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
@@ -39,11 +38,6 @@ public class User {
     @NotBlank
     @Column(name = "name")
     private String name;
-
-    @NotNull
-    @Email
-    @Column(name = "email")
-    private String email;
 
     @NotBlank
     @Column(name = "password")

@@ -20,7 +20,7 @@ public class UserController {
 
     @PostMapping(REGISTER_URL)
     public ResponseEntity<?> createUser(@Valid @RequestBody User user){
-        if(userService.getUserByEmail(user.getEmail()) != null){
+        if(userService.getUserByName(user.getName()) != null){
             return ResponseEntity.badRequest().body("User already created.");
         }
         Long userId = userService.registerUser(user);
