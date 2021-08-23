@@ -27,4 +27,17 @@ public class EventService {
     public Long addEvent(Event event){
         return eventRepository.saveAndFlush(event).getId();
     }
+
+    public Long updateEvent(Long id, Event newEvent) throws NotFoundException{
+        Event event = getEventById(id);
+        event.setTitle(newEvent.getTitle());
+        event.setDescription(newEvent.getDescription());
+        event.setDate(newEvent.getDate());
+        return eventRepository.saveAndFlush(event).getId();
+    }
+
+    public Long deleteEvent(Long id) throws NotFoundException{
+        eventRepository.delete(getEventById(id));
+        return id;
+    }
 }

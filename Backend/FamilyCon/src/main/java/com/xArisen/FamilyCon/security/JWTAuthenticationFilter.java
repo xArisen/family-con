@@ -3,7 +3,9 @@ package com.xArisen.FamilyCon.security;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.xArisen.FamilyCon.dto.UserLoginDto;
 import com.xArisen.FamilyCon.models.User;
+import com.xArisen.FamilyCon.security.userDetails.UserDetailsImpl;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -25,7 +27,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
         this.authenticationManager = authenticationManager;
-
         setFilterProcessesUrl(LOGIN_URL);
     }
 
@@ -33,8 +34,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     public Authentication attemptAuthentication(HttpServletRequest req,
                                                 HttpServletResponse res) throws AuthenticationException {
         try {
-            User creds = new ObjectMapper()
-                    .readValue(req.getInputStream(), User.class);
+            UserLoginDto creds = new ObjectMapper()
+                    .readValue(req.getInputStream(), UserLoginDto.class);
 
             return authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
@@ -53,11 +54,11 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                                             FilterChain chain,
                                             Authentication auth) throws IOException {
         String token = JWT.create()
-                .withSubject(((User) auth.getPrincipal()).getName())
+                .withSubject(((UserDetailsImpl) auth.getPrincipal()).getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .sign(Algorithm.HMAC512(SECRET.getBytes()));
 
-        String body = ((User) auth.getPrincipal()).getName() + " " + token;
+        String body = token;
 
         res.getWriter().write(body);
         res.getWriter().flush();

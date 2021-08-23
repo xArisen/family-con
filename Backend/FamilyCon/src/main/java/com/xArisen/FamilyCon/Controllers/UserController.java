@@ -19,7 +19,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping(REGISTER_URL)
-    public ResponseEntity<?> createUser(@Valid @RequestBody User user){
+    public ResponseEntity<?> createUser(@Valid @RequestBody User user) throws Exception{
         if(userService.getUserByName(user.getName()) != null){
             return ResponseEntity.badRequest().body("User already created.");
         }
