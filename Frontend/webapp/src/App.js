@@ -1,23 +1,34 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import Dashboard from './components/Dashboard';
+import Preferences from './components/Preferences';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import useToken from './UseToken';
+import Logreg from './components/Logreg';
+import './style/Logreg.css'
 
 function App() {
+  const { token, setToken } = useToken();
+
+  if(!token) {
+    return <div className="custom-tabs">
+      <Logreg setToken={setToken}/>
+      </div>
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="wrapper">
+      <h1>Application</h1>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/dashboard">
+            <Dashboard />
+          </Route>
+          <Route path="/preferences">
+            <Preferences />
+          </Route>
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 }
