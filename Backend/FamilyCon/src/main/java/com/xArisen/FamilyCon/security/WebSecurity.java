@@ -13,6 +13,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import static com.xArisen.FamilyCon.security.SecurityConstants.LOGIN_URL;
 import static com.xArisen.FamilyCon.security.SecurityConstants.REGISTER_URL;
 
 @EnableWebSecurity
@@ -30,6 +31,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().cors().and().authorizeRequests()
                 .antMatchers(REGISTER_URL).permitAll()
+                .antMatchers(LOGIN_URL).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .addFilter(new JWTAuthenticationFilter(authenticationManager()))
