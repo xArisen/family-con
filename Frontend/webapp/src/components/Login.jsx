@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import '../style/Login.css';
+import axios from 'axios';
+import {saveToken} from '../UseToken';
 
 
 async function loginUser(credentials) {
@@ -13,16 +15,13 @@ async function loginUser(credentials) {
         body: JSON.stringify(credentials)
     })
         .then(data => data.json())
-        .then(result => {
-            console.log(result);
-        })
         .catch(error => {
-            console.error(error)
+            throw(error);
         })
 }
 
 
-export default function Login({ setToken }) {
+export default function Login() {
     const [name, setUserName] = useState();
     const [password, setPassword] = useState();
 
@@ -32,8 +31,16 @@ export default function Login({ setToken }) {
             name,
             password
         });
-        console.log(token);
-        setToken(token);
+        saveToken(token);
+
+        axios.interceptors.request.use(
+            config => {
+                config.headers.authorization = `Bearer ${token}`;
+            },
+            error => {
+                return Promise.reject(error);
+            }
+        )
     }
 
 

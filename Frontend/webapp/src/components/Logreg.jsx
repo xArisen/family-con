@@ -4,8 +4,7 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
 import Register from './Register';
 
-function Logreg(props) {
-    const { setToken } = props;
+function Logreg() {
     return (
         <Tabs>
             <TabList>
@@ -14,7 +13,7 @@ function Logreg(props) {
             </TabList>
 
             <TabPanel>
-                <Login setToken={setToken} />
+                <Login/>
             </TabPanel>
             <TabPanel>
                 <Register></Register>
