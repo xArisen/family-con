@@ -5,7 +5,10 @@ import { useState } from 'react';
 function CustomCalendar() {
     const [value, onChange] = useState(new Date());
     return (
-        <Calendar/>
+        <Calendar
+        onChange={onChange}
+        value={value}
+        />
     )
 }
 

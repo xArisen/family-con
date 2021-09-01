@@ -3,7 +3,7 @@ import './App.css';
 import { getToken } from './UseToken';
 import Logreg from './components/Logreg';
 import './style/Logreg.css'
-import CustomCalendar from './components/CustomCalendar';
+import MainPage from './components/MainPage';
 
 function App() {
   if(!getToken()) {
@@ -14,8 +14,7 @@ function App() {
 
   return (
     <div className="wrapper">
-      <h1>Application</h1>
-      <CustomCalendar/>
+      <MainPage/>
     </div>
   );
 }

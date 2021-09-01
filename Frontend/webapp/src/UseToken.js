@@ -9,4 +9,11 @@ export const getToken = () => {
 export const saveToken = userToken => {
   // localStorage.setItem('token', userToken);
   Cookie.set("token", userToken);
+  window.location.reload();
+};
+
+export const removeToken = userToken => {
+  // localStorage.setItem('token', userToken);
+  Cookie.remove("token");
+  window.location.reload();
 };
