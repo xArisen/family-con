@@ -1,4 +1,6 @@
 .custom-content-container{
     height: 100%;
     margin: 20px 40px;
+    justify-content: center;
+    text-align: center;
 }

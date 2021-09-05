@@ -1,0 +1,11 @@
+.custom-dropdown{
+    padding: 0 20px !important;
+    width: 250px;
+}
+
+.custom-calendargetter-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 20px 0;
+}

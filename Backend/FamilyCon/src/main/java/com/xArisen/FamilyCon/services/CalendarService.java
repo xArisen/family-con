@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -26,6 +27,9 @@ public class CalendarService {
         return calendarRepository.findById(id).orElseThrow(() -> new NotFoundException("Calendar not found"));
     }
 
+    public List<Calendar> getAllCalendarsByUser(User user) {
+        return calendarRepository.findAllByUser(user);
+    }
 
     public Long createCalendarForUserName(Calendar calendar, String name) throws Exception {
         User user = userService.getUserByName(name);

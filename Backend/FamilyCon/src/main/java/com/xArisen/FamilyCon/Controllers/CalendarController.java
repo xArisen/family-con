@@ -1,6 +1,7 @@
 package com.xArisen.FamilyCon.Controllers;
 
 import com.xArisen.FamilyCon.models.Calendar;
+import com.xArisen.FamilyCon.models.User;
 import com.xArisen.FamilyCon.services.CalendarService;
 import com.xArisen.FamilyCon.services.UserService;
 import lombok.AllArgsConstructor;
@@ -17,6 +18,13 @@ public class CalendarController {
 
     private final CalendarService calendarService;
     private final UserService userService;
+
+    @GetMapping("/calendar")
+    public ResponseEntity<?> getAllCalendars(HttpServletRequest request) throws Exception{
+        String userName = userService.getUserNameFromRequest(request);
+        User user = userService.getUserByName(userName);
+        return ResponseEntity.ok(calendarService.getAllCalendarsByUser(user));
+    }
 
     @GetMapping("/calendar/{id}")
     public ResponseEntity<?> getCalendar(@PathVariable Long id) throws Exception{

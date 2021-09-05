@@ -35,7 +35,7 @@ export default function Login() {
 
         axios.interceptors.request.use(
             config => {
-                config.headers.authorization = `Bearer ${token}`;
+                config.headers.Authorization = `Bearer ${token}`;
             },
             error => {
                 return Promise.reject(error);

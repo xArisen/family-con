@@ -1,14 +1,18 @@
 import React from 'react'
 import Calendar from 'react-calendar'
 import { useState } from 'react';
+import 'react-calendar/dist/Calendar.css';
+import '../style/CustomCalendar.css'
 
 function CustomCalendar() {
     const [value, onChange] = useState(new Date());
     return (
-        <Calendar
-        onChange={onChange}
-        value={value}
-        />
+        <div className="custom-calendar-container">
+            <Calendar
+            onChange={onChange}
+            value={value}
+            />
+        </div>
     )
 }
 
