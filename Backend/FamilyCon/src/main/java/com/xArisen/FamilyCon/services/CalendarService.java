@@ -1,5 +1,6 @@
 package com.xArisen.FamilyCon.services;
 
+import com.xArisen.FamilyCon.dto.CalendarDropdownDto;
 import com.xArisen.FamilyCon.models.Calendar;
 import com.xArisen.FamilyCon.models.Event;
 import com.xArisen.FamilyCon.models.User;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,8 +29,13 @@ public class CalendarService {
         return calendarRepository.findById(id).orElseThrow(() -> new NotFoundException("Calendar not found"));
     }
 
-    public List<Calendar> getAllCalendarsByUser(User user) {
-        return calendarRepository.findAllByUser(user);
+    public List<CalendarDropdownDto> getAllCalendarsByUser(User user) {
+        List<CalendarDropdownDto> mappedCalendars = new ArrayList<>();
+        calendarRepository.findAllByUser(user).forEach(calendar -> {
+            mappedCalendars.add(new CalendarDropdownDto(calendar));
+        });
+
+        return mappedCalendars;
     }
 
     public Long createCalendarForUserName(Calendar calendar, String name) throws Exception {
