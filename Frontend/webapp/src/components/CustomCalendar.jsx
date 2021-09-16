@@ -11,6 +11,7 @@ function CustomCalendar() {
             <Calendar
             onChange={onChange}
             value={value}
+            className="custom-calendar"
             />
         </div>
     )

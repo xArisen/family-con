@@ -10,7 +10,8 @@ import {getToken, removeToken} from '../UseToken';
 class CalendarGetter extends React.Component {
   state = {
     loading: true,
-    allCalendars: []
+    allCalendars: [],
+    showAddCalendar: false
   };
 
   getAllCalendarsData = async () => {
@@ -25,15 +26,14 @@ class CalendarGetter extends React.Component {
     }
     const data = await response.json();
     this.setState({allCalendars: data})
-    console.log(data);
   }
 
-  createCalendar = async () => {
+  createCalendar = async (calendarName) => {
     const url = 'http://localhost:8080/calendar';
     const response = await fetch(url, { 
         method: 'POST', 
         body: JSON.stringify({
-          name: "praca"
+          name: calendarName
         }),
         headers: new Headers({
           'Authorization': `Bearer ${getToken()}`,
@@ -42,19 +42,32 @@ class CalendarGetter extends React.Component {
         
         if(response.status == 403){
           removeToken();
+        }else if(response.status == 200){
+          this.getAllCalendarsData();
         }
     const data = await response.json();
-    console.log(data);
   }
 
-    render() { 
+  componentDidMount(){
+    this.getAllCalendarsData();           
+  } 
+    render() {
       return (
+        <>
         <div className="custom-calendargetter-container">
-            <h3>Wybierz kalendarz:</h3>
-            <Dropdown className="custom-dropdown" options={this.state.allCalendars.map(calendar => calendar.name)} placeholder="Wybierz..." />
-            <input type="button" value="Get calendars" onClick={this.getAllCalendarsData} />
-            <input type="button" value="Add calendar" onClick={this.createCalendar} />
+            <h3 className="custom-dropdown-choosecalendar-name">Wybierz kalendarz:</h3>
+            <Dropdown className="custom-dropdown-choosecalendar" options={this.state.allCalendars.map(calendar => calendar.name)} placeholder="Wybierz..." />
+            <input type="button" value="Dodaj kalendarz" onClick={() => this.setState({ showAddCalendar: !this.state.showAddCalendar})} />
+            <h1>{this.state.showAddCalendar}</h1>
         </div>
+        {this.state.showAddCalendar && <div className="custom-addcalendar-container">
+          <div className="custom-addcalendar-inputcontainer">
+            <p className="custom-addcalendar-inputname">Nazwa</p>
+            <input type="text" id="addcalendar-inputfield" className="custom-addcalendar-inputfield"></input>
+            <input type="button" value="Stwórz" className="custom-addcalendar-submitbutton" onClick={() => this.createCalendar(document.getElementById('addcalendar-inputfield').value)}/>
+          </div>
+        </div>}
+        </>
       )}
 }
 

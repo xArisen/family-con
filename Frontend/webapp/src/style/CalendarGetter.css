@@ -1,6 +1,10 @@
-.custom-dropdown{
-    padding: 0 20px !important;
-    width: 250px;
+.custom-dropdown-choosecalendar-name{
+    margin: auto 0px;
+}
+
+.custom-dropdown-choosecalendar{
+    margin: 0 20px !important;
+    width: 290px;
 }
 
 .custom-calendargetter-container{
@@ -8,4 +12,32 @@
     flex-direction: row;
     justify-content: center;
     padding: 20px 0;
+}
+
+.custom-addcalendar-container{
+    display: flex;
+    justify-content: left;
+    padding-bottom: 20px;
+    width: 700px;
+    margin: auto;
+}
+
+
+.custom-addcalendar-inputcontainer{
+}
+
+.custom-addcalendar-inputname{
+    margin: 0;
+    margin-right: auto;
+    font-size: small;
+    text-align: left;
+}
+
+.custom-addcalendar-inputfield{
+    width: 200px;
+    margin-right: 20px;
+}
+
+.custom-addcalendar-submitbutton{
+    width: 100px;
 }
