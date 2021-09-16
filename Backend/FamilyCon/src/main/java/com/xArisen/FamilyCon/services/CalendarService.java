@@ -40,6 +40,10 @@ public class CalendarService {
 
     public Long createCalendarForUserName(Calendar calendar, String name) throws Exception {
         User user = userService.getUserByName(name);
+        Boolean calendarAlreadyExists = calendarRepository.existsByName(calendar.getName());
+        if(calendarAlreadyExists){
+            throw new IllegalArgumentException("Calendar already exists");
+        }
         calendar.setUser(user);
         return calendarRepository.saveAndFlush(calendar).getId();
     }

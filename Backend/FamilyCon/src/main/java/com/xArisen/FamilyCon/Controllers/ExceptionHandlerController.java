@@ -20,4 +20,9 @@ public class ExceptionHandlerController {
     public ResponseEntity<?> handleBadCredentialsException(Exception ex){
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler({IllegalArgumentException.class})
+    public ResponseEntity<?> handleIllegalArgumentException(Exception ex){
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }

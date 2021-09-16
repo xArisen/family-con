@@ -10,4 +10,5 @@ import java.util.List;
 @Repository
 public interface CalendarRepository extends JpaRepository<Calendar, Long> {
     List<Calendar> findAllByUser(User user);
+    Boolean existsByName(String name);
 }
