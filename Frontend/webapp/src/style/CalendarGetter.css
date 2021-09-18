@@ -41,3 +41,15 @@
 .custom-addcalendar-submitbutton{
     width: 100px;
 }
+
+.custom-addcalendar-response-success{
+    color: green;
+    text-align: left;
+    margin-top: 5px;
+}
+
+.custom-addcalendar-response-wrong{
+    color: rgb(206, 0, 0);
+    text-align: left;
+    margin-top: 5px;
+}

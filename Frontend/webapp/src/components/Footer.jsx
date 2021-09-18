@@ -6,8 +6,7 @@ function Footer() {
         <div className="custom-footer-container">
             <footer class="page-footer font-small blue">
 
-            <div class="footer-copyright text-center py-2">© 2020 Copyright:
-                <a href="https://mdbootstrap.com/"> MDBootstrap.com</a>
+            <div class="footer-copyright text-center py-2">© 2020 Copyright: xyz
             </div>
 
             </footer>

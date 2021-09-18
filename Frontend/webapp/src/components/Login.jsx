@@ -1,70 +1,49 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import '../style/Login.css';
-import axios from 'axios';
 import {saveToken} from '../UseToken';
 
-
-async function loginUser(credentials) {
-    return fetch('http://localhost:8080/user/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify(credentials)
-    })
-        .then(data => data.json())
-        .catch(error => {
-            throw(error);
-        })
-}
-
-
-export default function Login() {
-    const [name, setUserName] = useState();
-    const [password, setPassword] = useState();
-
-    const handleSubmit = async e => {
-        e.preventDefault();
-        const token = await loginUser({
-            name,
-            password
-        });
-        saveToken(token);
-
-        axios.interceptors.request.use(
-            config => {
-                config.headers.Authorization = `Bearer ${token}`;
-            },
-            error => {
-                return Promise.reject(error);
-            }
-        )
+export default class Login extends React.Component {
+    state = {
+        name: "",
+        password: "",
+        response: ""
     }
 
+    
+    login = async (name, password) => {
+        const url = 'http://localhost:8080/user/login';
+        var data = JSON.stringify({ "name": name, "password": password });
+        const response = await fetch(url, { 
+            method: 'POST', 
+            headers: new Headers({
+                "Content-type": "application/json; charset=UTF-8"
+            }),
+            body: data
+        });
+        const responseData = await response.json();
+        saveToken(responseData);
+        if(responseData == ""){
+            this.setState({response: "Błąd logowania"});
+        }
 
+        document.getElementById("nameInput").value = "";
+        document.getElementById("passwordInput").value = "";
+      }
+
+    render(){
     return (
-        <div className="login-wrapper">
-            <h1>Wpisz dane</h1>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    <p>Username</p>
-                    <input type="text" onChange={e => setUserName(e.target.value)} />
-                </label>
-                <label>
-                    <p>Password</p>
-                    <input type="password" onChange={e => setPassword(e.target.value)} />
-                </label>
-                <div>
-                    <br />
-                    <button type="submit">Submit</button>
-                </div>
-            </form>
+        <div className="register-wrapper">
+            <h1>Witamy!</h1>
+            <div className="custom-register-inputbox">
+                <p>Nazwa</p>
+                <input type="text" id="nameInput"/>
+            </div>
+            <div className="custom-register-inputbox">
+                <p>Hasło</p>
+                <input type="password" id="passwordInput"/>
+            </div>
+                <button className="custom-register-submitbutton" type="submit" onClick={() => this.login(document.getElementById("nameInput").value, document.getElementById("passwordInput").value)}>Wyślij</button>
+                <h6 className="custom-register-response-wrong">{this.state.response}</h6>
         </div>
-    )
-}
-
-Login.propTypes = {
-    setToken: PropTypes.func.isRequired
+    )}
 }

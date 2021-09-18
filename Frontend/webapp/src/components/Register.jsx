@@ -19,7 +19,8 @@ export default class Register extends React.Component {
     state = {
         name: "",
         password: "",
-        response: ""
+        response: "",
+        responseClassName: ""
     };
 
     register = async (name, password) => {
@@ -36,27 +37,32 @@ export default class Register extends React.Component {
         const status = await response.status;
         if(status == 400) {
             this.setState({response: "Błąd rejestracji"});
+            this.setState({responseClassName: "custom-register-response-wrong"});
         }else if(status == 200){
-            this.setState({response: "Poprawno dodano konto"});
+            this.setState({response: "Poprawnie zarejestrowano konto"});
+            this.setState({responseClassName: "custom-register-response-correct"});
         }
+
+        document.getElementById("nameInput").value = "";
+        document.getElementById("passwordInput").value = "";
       }
     
 
 
 render() {
     return (
-        <div className="login-wrapper">
+        <div className="register-wrapper">
             <h1>Witamy!</h1>
             <div className="custom-register-inputbox">
-                <p>Username</p>
+                <p>Nazwa</p>
                 <input type="text" id="nameInput"/>
             </div>
             <div className="custom-register-inputbox">
-                <p>Password</p>
+                <p>Hasło</p>
                 <input type="password" id="passwordInput"/>
             </div>
-                <button className="custom-register-submitbutton" type="submit" onClick={() => this.register(document.getElementById("nameInput").value, document.getElementById("passwordInput").value)}>Submit</button>
-                <h6>{this.state.response}</h6>
+                <button className="custom-register-submitbutton" type="submit" onClick={() => this.register(document.getElementById("nameInput").value, document.getElementById("passwordInput").value)}>Wyślij</button>
+                <h6 className={this.state.responseClassName}>{this.state.response}</h6>
         </div>
     )
     }

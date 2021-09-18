@@ -5,10 +5,29 @@
     justify-content: center;
 }
 
+.register-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .custom-register-inputbox{
-    margin: 10px auto;
+    margin: 5px auto;
 }
 
 .custom-register-submitbutton{
-    margin: 10px;
+    margin: 0px auto;
+    margin-top: 25px;
+}
+
+.custom-register-response-correct{
+    margin-top: 10px;
+    color: green;
+}
+
+.custom-register-response-wrong{
+    margin-top: 10px;
+    color: rgb(206, 0, 0);
+    text-align: center;
 }

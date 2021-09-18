@@ -11,7 +11,9 @@ class CalendarGetter extends React.Component {
   state = {
     loading: true,
     allCalendars: [],
-    showAddCalendar: false
+    showAddCalendar: false,
+    addCalendarResponse: '',
+    addCalendarResponseClassName: ''
   };
 
   getAllCalendarsData = async () => {
@@ -39,13 +41,18 @@ class CalendarGetter extends React.Component {
           'Authorization': `Bearer ${getToken()}`,
           "Content-type": "application/json; charset=UTF-8"
         })});
-        
+        const data = await response.json();
+        document.getElementById('addcalendar-inputfield').value = "";
         if(response.status == 403){
           removeToken();
         }else if(response.status == 200){
           this.getAllCalendarsData();
+          this.setState({addCalendarResponseClassName: "custom-addcalendar-response-success"});
+          this.setState({addCalendarResponse: "Stworzono nowy kalendarz"});
+        }else if(response.status == 400){
+          this.setState({addCalendarResponseClassName: "custom-addcalendar-response-wrong"});
+          this.setState({addCalendarResponse: data.message});
         }
-    const data = await response.json();
   }
 
   componentDidMount(){
@@ -57,7 +64,7 @@ class CalendarGetter extends React.Component {
         <div className="custom-calendargetter-container">
             <h3 className="custom-dropdown-choosecalendar-name">Wybierz kalendarz:</h3>
             <Dropdown className="custom-dropdown-choosecalendar" options={this.state.allCalendars.map(calendar => calendar.name)} placeholder="Wybierz..." />
-            <input type="button" value="Dodaj kalendarz" onClick={() => this.setState({ showAddCalendar: !this.state.showAddCalendar})} />
+            <input type="button" value="Dodaj kalendarz" onClick={() => this.setState({ showAddCalendar: !this.state.showAddCalendar, addCalendarResponse: ''})} />
             <h1>{this.state.showAddCalendar}</h1>
         </div>
         {this.state.showAddCalendar && <div className="custom-addcalendar-container">
@@ -65,6 +72,7 @@ class CalendarGetter extends React.Component {
             <p className="custom-addcalendar-inputname">Nazwa</p>
             <input type="text" id="addcalendar-inputfield" className="custom-addcalendar-inputfield"></input>
             <input type="button" value="Stwórz" className="custom-addcalendar-submitbutton" onClick={() => this.createCalendar(document.getElementById('addcalendar-inputfield').value)}/>
+            <h6 className={this.state.addCalendarResponseClassName}>{this.state.addCalendarResponse}</h6>
           </div>
         </div>}
         </>
