@@ -11,10 +11,17 @@ class CalendarGetter extends React.Component {
   state = {
     loading: true,
     allCalendars: [],
+    selectedCalendar: '',
+    calendar: '',
     showAddCalendar: false,
     addCalendarResponse: '',
     addCalendarResponseClassName: ''
   };
+
+  handleDropdownChange = (option) => {
+    this.getCalendar(this.state.allCalendars.find(calendar => calendar.name == option.value).id);
+    console.log(this.state.calendar);
+  }
 
   getAllCalendarsData = async () => {
     const url = 'http://localhost:8080/calendar';
@@ -28,6 +35,21 @@ class CalendarGetter extends React.Component {
     }
     const data = await response.json();
     this.setState({allCalendars: data})
+  }
+
+  getCalendar = async (id) => {
+    const url = `http://localhost:8080/calendar/${id}`;
+    const response = await fetch(url, { 
+        method: 'GET', 
+        headers: new Headers({
+          'Authorization': `Bearer ${getToken()}`
+        })});
+    if(response.status == 403){
+      removeToken();
+    }
+    const data = await response.json();
+    console.log(data);
+    this.setState({calendar: data})
   }
 
   createCalendar = async (calendarName) => {
@@ -63,7 +85,7 @@ class CalendarGetter extends React.Component {
         <>
         <div className="custom-calendargetter-container">
             <h3 className="custom-dropdown-choosecalendar-name">Wybierz kalendarz:</h3>
-            <Dropdown className="custom-dropdown-choosecalendar" options={this.state.allCalendars.map(calendar => calendar.name)} placeholder="Wybierz..." />
+            <Dropdown id="calendar-select-dropdown" className="custom-dropdown-choosecalendar" options={this.state.allCalendars.map(calendar => calendar.name)} placeholder="Wybierz..." onChange={(option) => this.handleDropdownChange(option)} />
             <input type="button" value="Dodaj kalendarz" onClick={() => this.setState({ showAddCalendar: !this.state.showAddCalendar, addCalendarResponse: ''})} />
             <h1>{this.state.showAddCalendar}</h1>
         </div>
