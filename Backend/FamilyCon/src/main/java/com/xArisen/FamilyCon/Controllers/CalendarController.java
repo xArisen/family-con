@@ -28,7 +28,7 @@ public class CalendarController {
 
     @GetMapping("/calendar/{id}")
     public ResponseEntity<?> getCalendar(@PathVariable Long id) throws Exception{
-        return ResponseEntity.ok(calendarService.getCalendarById(id));
+        return ResponseEntity.ok(calendarService.getCalendarDataDtoById(id));
     }
 
     @PostMapping("/calendar")

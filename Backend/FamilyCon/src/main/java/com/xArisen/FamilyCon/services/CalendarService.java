@@ -1,5 +1,6 @@
 package com.xArisen.FamilyCon.services;
 
+import com.xArisen.FamilyCon.dto.CalendarDataDto;
 import com.xArisen.FamilyCon.dto.CalendarDropdownDto;
 import com.xArisen.FamilyCon.models.Calendar;
 import com.xArisen.FamilyCon.models.Event;
@@ -25,6 +26,11 @@ public class CalendarService {
     @Autowired
     private EventService eventService;
 
+    public CalendarDataDto getCalendarDataDtoById(Long id) throws NotFoundException {
+        Calendar calendar = calendarRepository.findById(id).orElseThrow(() -> new NotFoundException("Calendar not found"));
+        return new CalendarDataDto(calendar);
+    }
+
     public Calendar getCalendarById(Long id) throws NotFoundException {
         return calendarRepository.findById(id).orElseThrow(() -> new NotFoundException("Calendar not found"));
     }
@@ -38,11 +44,14 @@ public class CalendarService {
         return mappedCalendars;
     }
 
-    public Long createCalendarForUserName(Calendar calendar, String name) throws Exception {
-        User user = userService.getUserByName(name);
-        Boolean calendarAlreadyExists = calendarRepository.existsByName(calendar.getName());
-        if(calendarAlreadyExists){
-            throw new IllegalArgumentException("Calendar already exists");
+    public Long createCalendarForUserName(Calendar calendar, String userName) throws Exception {
+        if(calendar.getName().isBlank()){
+            throw new IllegalArgumentException("Kalendarz musi posiadać nazwę");
+        }
+        User user = userService.getUserByName(userName);
+        Calendar calendarAlreadyExists = calendarRepository.findByName(calendar.getName());
+        if(calendarAlreadyExists != null && calendarAlreadyExists.getUser().getName().equals(userName)){
+            throw new IllegalArgumentException("Kalendarz o takiej nazwie już istnieje");
         }
         calendar.setUser(user);
         return calendarRepository.saveAndFlush(calendar).getId();
