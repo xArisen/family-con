@@ -3,6 +3,7 @@ import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import '../style/CalendarGetter.css'
 import {getToken, removeToken} from '../UseToken';
+import CustomCalendar from './CustomCalendar'
 
 
 
@@ -11,16 +12,16 @@ class CalendarGetter extends React.Component {
   state = {
     loading: true,
     allCalendars: [],
-    selectedCalendar: '',
-    calendar: '',
+    selectedCalendar: null,
+    calendarData: '',
     showAddCalendar: false,
     addCalendarResponse: '',
     addCalendarResponseClassName: ''
   };
 
   handleDropdownChange = (option) => {
+    this.setState({selectedCalendar: option})
     this.getCalendar(this.state.allCalendars.find(calendar => calendar.name == option.value).id);
-    console.log(this.state.calendar);
   }
 
   getAllCalendarsData = async () => {
@@ -38,6 +39,7 @@ class CalendarGetter extends React.Component {
   }
 
   getCalendar = async (id) => {
+    this.setState({loading: true});
     const url = `http://localhost:8080/calendar/${id}`;
     const response = await fetch(url, { 
         method: 'GET', 
@@ -49,7 +51,8 @@ class CalendarGetter extends React.Component {
     }
     const data = await response.json();
     console.log(data);
-    this.setState({calendar: data})
+    this.setState({calendarData: data})
+    this.setState({loading: false});
   }
 
   createCalendar = async (calendarName) => {
@@ -97,6 +100,7 @@ class CalendarGetter extends React.Component {
             <h6 className={this.state.addCalendarResponseClassName}>{this.state.addCalendarResponse}</h6>
           </div>
         </div>}
+        {this.state.selectedCalendar && <CustomCalendar calendarDataLoading={this.state.loading} calendarData={this.state.calendarData}/>}
         </>
       )}
 }

@@ -5,5 +5,5 @@
 
 .custom-calendar{
     width: 700px;
-    height: 320px;
+    min-height: 320px;
 }
