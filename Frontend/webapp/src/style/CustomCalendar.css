@@ -1,9 +1,11 @@
 .custom-calendar-container{
     display: flex;
     justify-content: center;
+    flex-direction: column;
 }
 
 .custom-calendar{
     width: 700px;
     min-height: 320px;
+    margin: 0 auto;
 }

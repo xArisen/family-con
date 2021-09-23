@@ -14,18 +14,6 @@
     padding: 20px 0;
 }
 
-.custom-addcalendar-container{
-    display: flex;
-    justify-content: left;
-    padding-bottom: 20px;
-    width: 700px;
-    margin: auto;
-}
-
-
-.custom-addcalendar-inputcontainer{
-}
-
 .custom-addcalendar-inputname{
     margin: 0;
     margin-right: auto;
@@ -42,14 +30,10 @@
     width: 100px;
 }
 
-.custom-addcalendar-response-success{
+.custom-updateEvent-response-success{
     color: green;
-    text-align: left;
-    margin-top: 5px;
 }
 
-.custom-addcalendar-response-wrong{
+.custom-updateEvent-response-wrong{
     color: rgb(206, 0, 0);
-    text-align: left;
-    margin-top: 5px;
 }

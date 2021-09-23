@@ -2,12 +2,14 @@ import React from 'react'
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css';
 import '../style/CustomCalendar.css'
+import EventController from './EventController';
 
 class CustomCalendar extends React.Component {
 
     state = {
         initialDate: new Date(),
-        allEvents: []
+        allEvents: [],
+        choosenDayEvents: []
     }
 
     componentDidUpdate(){
@@ -26,7 +28,7 @@ class CustomCalendar extends React.Component {
         const date = new Date(valueDatePlusOneDay).toISOString().substr(0,value.toISOString().indexOf("."));
         const dateString = date.toString().substr(0, 10);
         const events = this.getAllEventsAtDay(dateString);
-        console.log(events);
+        this.setState({choosenDayEvents: events});
     }
 
     getAllEventsAtDay = (date) => {
@@ -42,6 +44,7 @@ class CustomCalendar extends React.Component {
             onClickDay={(value) => this.onClickDayHandle(value)}
             value={this.state.allEvents.map(event => new Date(event.date))}
             />
+            <EventController choosenDayEvents={this.state.choosenDayEvents}/>
         </div>
     )
     }

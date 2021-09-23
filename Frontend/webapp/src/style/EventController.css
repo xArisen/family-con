@@ -1,0 +1,49 @@
+.custom-event-container{
+    margin: 20px auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.custom-event-display-container, .custom-event-detail-container{
+    margin: 0 20px;
+    border: 1px solid grey;
+    display: flex;
+    flex-direction: column;
+    width: 330px;
+    justify-content: center;
+}
+
+.custom-updateEvent-inputfield{
+    margin: 0 50px;
+}
+
+.custom-updateEvent-submitbutton{
+    margin: 10px 50px;
+}
+
+.custom-updateEvent-inputname{
+    margin: 0 50px;
+    margin-right: auto;
+    margin-top: 10px;
+    font-size: small;
+    text-align: left;
+}
+
+.custom-updateEvent-response-success{
+    color: green;
+}
+
+.custom-updateEvent-response-wrong{
+    color: rgb(206, 0, 0);
+}
+
+.custom-event-detail-container-positioning{
+    margin-bottom: auto;
+    margin-top: 10px;
+}
+
+.custom-event-detail-container-positioning{
+    margin-bottom: auto;
+    margin-top: 20px;
+}
