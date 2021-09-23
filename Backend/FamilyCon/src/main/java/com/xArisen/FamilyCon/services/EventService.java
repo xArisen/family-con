@@ -1,5 +1,6 @@
 package com.xArisen.FamilyCon.services;
 
+import com.xArisen.FamilyCon.dto.EventDto;
 import com.xArisen.FamilyCon.models.Event;
 import com.xArisen.FamilyCon.repo.EventRepository;
 import javassist.NotFoundException;
@@ -28,7 +29,7 @@ public class EventService {
         return eventRepository.saveAndFlush(event).getId();
     }
 
-    public Long updateEvent(Long id, Event newEvent) throws NotFoundException{
+    public Long updateEvent(Long id, EventDto newEvent) throws NotFoundException{
         Event event = getEventById(id);
         event.setTitle(newEvent.getTitle());
         event.setDescription(newEvent.getDescription());

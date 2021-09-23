@@ -1,10 +1,10 @@
 package com.xArisen.FamilyCon.Controllers;
 
+import com.xArisen.FamilyCon.dto.EventDto;
 import com.xArisen.FamilyCon.models.Calendar;
 import com.xArisen.FamilyCon.models.Event;
 import com.xArisen.FamilyCon.services.CalendarService;
 import com.xArisen.FamilyCon.services.EventService;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -39,8 +39,8 @@ public class EventController {
         return ResponseEntity.ok(calendar.getEvents());
     }
 
-    @PutMapping("/event/{id}")
-    public ResponseEntity<?> updateEvent(@PathVariable Long id, @RequestBody Event newEvent) throws Exception{
+    @PostMapping("/event/{id}")
+    public ResponseEntity<?> updateEvent(@PathVariable Long id, @RequestBody EventDto newEvent) throws Exception{
         return ResponseEntity.ok(eventService.updateEvent(id, newEvent));
     }
 
