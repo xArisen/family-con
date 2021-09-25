@@ -80,6 +80,21 @@ class CalendarGetter extends React.Component {
         }
   }
 
+  deleteCalendar = async (calendarId) => {
+    const url = 'http://localhost:8080/calendar/delete/'+calendarId;
+    const response = await fetch(url, { 
+      method: 'POST',
+      headers: new Headers({
+        'Authorization': `Bearer ${getToken()}`,
+        "Content-type": "application/json; charset=UTF-8"
+      })});
+      if(response.status == 403){
+        removeToken();
+      }else if(response.status == 200){
+        window.location.reload(true);
+      }
+  }
+
   componentDidMount(){
     this.getAllCalendarsData();           
   } 
@@ -89,7 +104,8 @@ class CalendarGetter extends React.Component {
         <div className="custom-calendargetter-container">
             <h3 className="custom-dropdown-choosecalendar-name">Wybierz kalendarz:</h3>
             <Dropdown id="calendar-select-dropdown" className="custom-dropdown-choosecalendar" options={this.state.allCalendars.map(calendar => calendar.name)} placeholder="Wybierz..." onChange={(option) => this.handleDropdownChange(option)} />
-            <input type="button" value="Dodaj kalendarz" onClick={() => this.setState({ showAddCalendar: !this.state.showAddCalendar, addCalendarResponse: ''})} />
+            <input type="button" value="Dodaj kalendarz" onClick={() => this.setState({ showAddCalendar: !this.state.showAddCalendar, addCalendarResponse: ''})} />&nbsp;
+            {this.state.selectedCalendar && <input type="button" value="Usuń kalendarz" onClick={() => this.deleteCalendar(this.state.calendarData.id)} />}
             <h1>{this.state.showAddCalendar}</h1>
         </div>
         {this.state.showAddCalendar && <div className="custom-addcalendar-container">
