@@ -25,10 +25,11 @@ public class EventController {
     }
 
     @PostMapping("/calendar/{calendarId}/event")
-    public ResponseEntity<?> addEvent(@RequestBody Event event, @PathVariable Long calendarId) throws Exception{
+    public ResponseEntity<?> addEvent(@RequestBody EventDto eventDto, @PathVariable Long calendarId) throws Exception{
         Calendar calendar = calendarService.getCalendarById(calendarId);
-        event.setCalendar(calendar);
-        Long eventId = eventService.addEvent(event);
+        Event newEvent = new Event(eventDto);
+        newEvent.setCalendar(calendar);
+        Long eventId = eventService.addEvent(newEvent);
         calendarService.assignEvent(calendar, eventService.getEventById(eventId));
         return ResponseEntity.ok(eventId);
     }
@@ -44,7 +45,7 @@ public class EventController {
         return ResponseEntity.ok(eventService.updateEvent(id, newEvent));
     }
 
-    @GetMapping("/event/{id}")
+    @PostMapping("/event/delete/{id}")
     public ResponseEntity<?> deleteEvent(@PathVariable Long id) throws Exception{
         return ResponseEntity.ok(eventService.deleteEvent(id));
     }

@@ -39,7 +39,7 @@ public class CalendarController {
         return ResponseEntity.ok(calendarId);
     }
 
-    @DeleteMapping("/calendar/{id}")
+    @PostMapping("/calendar/delete/{id}")
     public ResponseEntity<?> deleteCalendar(@PathVariable Long id) throws Exception{
         calendarService.deleteCalendar(id);
         return ResponseEntity.ok("Deleted");

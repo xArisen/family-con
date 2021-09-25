@@ -38,7 +38,7 @@ public class EventService {
     }
 
     public Long deleteEvent(Long id) throws NotFoundException{
-        eventRepository.delete(getEventById(id));
+        eventRepository.deleteEventById(id);
         return id;
     }
 }

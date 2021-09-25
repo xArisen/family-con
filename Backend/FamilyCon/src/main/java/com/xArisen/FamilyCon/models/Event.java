@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import com.sun.istack.NotNull;
+import com.xArisen.FamilyCon.dto.EventDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -54,4 +55,10 @@ public class Event {
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "calendar_id")
     private Calendar calendar;
+
+    public Event(EventDto eventDto){
+        this.title = eventDto.getTitle();
+        this.description = eventDto.getDescription();
+        this.date = eventDto.getDate();
+    }
 }

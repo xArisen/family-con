@@ -9,4 +9,5 @@ import java.time.LocalDate;
 @Repository
 public interface EventRepository extends JpaRepository<Event, Long> {
     Event findByDate(LocalDate date);
+    void deleteEventById(Long id);
 }
