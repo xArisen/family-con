@@ -1,8 +1,6 @@
 Aplikacja - kalendarz
 
-Frontend - React.js
-Backend - Spring boot
-Baza danych - PostgreSQL
+Frontend - React.js | Backend - Spring boot | Baza danych - PostgreSQL
 
 
 Logowanie/Rejestracja
