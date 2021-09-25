@@ -44,7 +44,7 @@ class CustomCalendar extends React.Component {
             onClickDay={(value) => this.onClickDayHandle(value)}
             value={this.state.allEvents.map(event => new Date(event.date))}
             />
-            <EventController choosenDayEvents={this.state.choosenDayEvents}/>
+            <EventController choosenDayEvents={this.state.choosenDayEvents} calendarId={this.props.calendarData.id}/>
         </div>
     )
     }

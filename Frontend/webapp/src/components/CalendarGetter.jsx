@@ -95,9 +95,11 @@ class CalendarGetter extends React.Component {
         {this.state.showAddCalendar && <div className="custom-addcalendar-container">
           <div className="custom-addcalendar-inputcontainer">
             <p className="custom-addcalendar-inputname">Nazwa</p>
-            <input type="text" id="addcalendar-inputfield" className="custom-addcalendar-inputfield"></input>
-            <input type="button" value="Stwórz" className="custom-addcalendar-submitbutton" onClick={() => this.createCalendar(document.getElementById('addcalendar-inputfield').value)}/>
-            <h6 className={this.state.addCalendarResponseClassName}>{this.state.addCalendarResponse}</h6>
+            <div className="custom-addcalendar-inputname-form">
+              <input type="text" id="addcalendar-inputfield" className="custom-addcalendar-inputfield"></input>
+              <input type="button" value="Stwórz" className="custom-addcalendar-submitbutton" onClick={() => this.createCalendar(document.getElementById('addcalendar-inputfield').value)}/>
+              <h6 className={this.state.addCalendarResponseClassName}>{this.state.addCalendarResponse}</h6>
+            </div>
           </div>
         </div>}
         {this.state.selectedCalendar && <CustomCalendar calendarDataLoading={this.state.loading} calendarData={this.state.calendarData}/>}

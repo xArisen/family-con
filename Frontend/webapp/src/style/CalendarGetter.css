@@ -37,3 +37,16 @@
 .custom-updateEvent-response-wrong{
     color: rgb(206, 0, 0);
 }
+
+.custom-addcalendar-inputcontainer{
+}
+
+.custom-addcalendar-container{
+    width: 700px;
+    margin: 0 auto;
+}
+
+.custom-addcalendar-inputname-form{
+    margin-right: auto;
+    width: 320px;
+}
